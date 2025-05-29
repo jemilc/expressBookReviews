@@ -60,7 +60,7 @@ regd_users.post("/login", (req,res) => {
     });
 
 // Add a book review
-regd_users.put("/review/:isbn", (req, res) => { // La ruta en index.js es "/customer", luego "/customer/auth/*"
+regd_users.put("/auth/review/:isbn", (req, res) => { // La ruta en index.js es "/customer", luego "/customer/auth/*"
     // entonces esta ruta será /customer/auth/review/:isbn
     const isbn = req.params.isbn;
     const reviewText = req.query.review; // Es común enviar la review como query parameter o en el body
@@ -68,7 +68,7 @@ regd_users.put("/review/:isbn", (req, res) => { // La ruta en index.js es "/cust
     // Si viene en el body, usa: const reviewText = req.body.review;
 
     // Asegúrate de que el usuario loggeado esté disponible de la sesión o del token
-    const username = req.user?.username; // Accedemos al username de la sesión
+    const username = req.session.authorization?.username; // Accedemos al username de la sesión
 
     if (!username) {
     return res.status(403).json({ message: "User not logged in or session expired." });
@@ -94,7 +94,7 @@ regd_users.put("/review/:isbn", (req, res) => { // La ruta en index.js es "/cust
     return res.status(200).json({ message: `Review for ISBN ${isbn} by user ${username} added/updated successfully.`, reviews: book.reviews });
 });
 
-regd_users.delete("/review/:isbn", (req, res) => {
+regd_users.delete("/authreview/:isbn", (req, res) => {
     const isbn = req.params.isbn;
     const username = req.session.authorization?.username;
 
