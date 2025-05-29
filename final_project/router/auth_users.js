@@ -94,7 +94,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => { // La ruta en index.js es "
     return res.status(200).json({ message: `Review for ISBN ${isbn} by user ${username} added/updated successfully.`, reviews: book.reviews });
 });
 
-regd_users.delete("/authreview/:isbn", (req, res) => {
+regd_users.delete("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn;
     const username = req.session.authorization?.username;
 
